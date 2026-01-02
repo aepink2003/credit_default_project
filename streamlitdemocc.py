@@ -14,13 +14,31 @@ def load_model():
 
 model = load_model()
 
-# Input fields
+st.subheader("Customer Information")
+
 limit_bal = st.number_input("Credit Limit (NT$)", min_value=0, value=50000)
 age = st.number_input("Age", min_value=18, max_value=100, value=35)
-max_delay = st.slider("Max Payment Delay (months)", -1, 9, 1)
-avg_delay = st.slider("Average Payment Delay", -1.0, 9.0, 0.5)
-avg_bill = st.number_input("Average Monthly Bill", min_value=0.0, value=20000.0)
-avg_payment = st.number_input("Average Monthly Payment", min_value=0.0, value=15000.0)
+
+st.subheader("Recent Payment Behavior")
+
+max_delay = st.selectbox(
+    "Maximum Payment Delay (months)",
+    options=[-1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+    help="-1 = paid on time, 1 = 1 month late, etc."
+)
+
+avg_delay = st.number_input(
+    "Average Payment Delay (months)",
+    min_value=-1.0,
+    max_value=9.0,
+    value=0.5,
+    help="Average of repayment delay codes over recent months"
+)
+
+st.subheader("Billing & Payments")
+
+avg_bill = st.number_input("Average Monthly Bill (NT$)", min_value=0.0, value=20000.0)
+avg_payment = st.number_input("Average Monthly Payment (NT$)", min_value=0.0, value=15000.0)
 
 # Create input dataframe
 input_df = pd.DataFrame([{
@@ -38,6 +56,6 @@ if st.button("Predict Default Risk"):
     st.metric("Default Risk Probability", f"{prob:.2%}")
 
     if prob > 0.5:
-        st.error("⚠ High Risk: Recommend intervention")
+        st.error("High Risk: Recommend intervention")
     else:
-        st.success("✅ Low Risk")
+        st.success("Low Risk")
