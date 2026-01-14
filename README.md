@@ -3,6 +3,8 @@
 ## Overview
 This project builds an end-to-end machine learning pipeline to predict credit card default risk using real-world customer, credit, and payment history data. The goal is to show how messy financial data can be transformed into business insights to support credit risk decision-making.
 
+Link to project: https://creditdefaultprojectashediga.streamlit.app/
+
 The project covers:
 - Data cleaning and preprocessing
 - Exploratory data analysis (EDA)
